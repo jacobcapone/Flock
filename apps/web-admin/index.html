@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173f35">
+  <title>Flock — Grace Community Church</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <aside class="sidebar">
+    <a class="brand" href="#" aria-label="Flock home">
+      <span class="brand-mark">F</span>
+      <span>flock</span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <button class="nav-item active" data-view="today"><span>⌂</span>Today</button>
+      <button class="nav-item" data-view="groups"><span>◉</span>Groups</button>
+      <button class="nav-item" data-view="calendar"><span>□</span>Calendar</button>
+      <button class="nav-item" data-view="admin"><span>⌁</span>Admin</button>
+    </nav>
+    <div class="sidebar-card">
+      <span class="eyebrow">Your church</span>
+      <strong>Grace Community</strong>
+      <small>Austin, Texas</small>
+    </div>
+    <button class="profile">
+      <span class="avatar">JM</span>
+      <span><strong>Jordan Miller</strong><small>Administrator</small></span>
+      <span>⋯</span>
+    </button>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <div>
+        <span class="eyebrow" id="greeting">Good morning</span>
+        <h1 id="page-title">Here’s what’s happening</h1>
+      </div>
+      <div class="top-actions">
+        <button class="icon-button" id="notification-button" aria-label="Notifications">
+          ♢<span class="unread-dot"></span>
+        </button>
+        <button class="primary-button" id="compose-button"><span>＋</span> New announcement</button>
+      </div>
+    </header>
+
+    <section id="today-view" class="view active">
+      <div class="hero">
+        <div>
+          <span class="hero-label">This week at Grace</span>
+          <h2>Life is better<br>together.</h2>
+          <p>Stay connected to the people, groups, and moments that matter.</p>
+          <button class="light-button" data-view-link="calendar">View your week <span>→</span></button>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <span class="sun"></span><span class="hill hill-one"></span><span class="hill hill-two"></span>
+          <span class="person person-one"></span><span class="person person-two"></span><span class="person person-three"></span>
+        </div>
+      </div>
+
+      <div class="section-heading">
+        <div><span class="eyebrow">Latest</span><h2>From your groups</h2></div>
+        <button class="text-button" data-view-link="groups">See all groups →</button>
+      </div>
+      <div id="announcement-list" class="feed"></div>
+    </section>
+
+    <section id="groups-view" class="view">
+      <div class="section-heading">
+        <div><span class="eyebrow">Community</span><h2>Your groups</h2></div>
+        <button class="secondary-button" id="create-group-button">＋ Create group</button>
+      </div>
+      <div id="group-grid" class="group-grid"></div>
+    </section>
+
+    <section id="calendar-view" class="view">
+      <div class="section-heading">
+        <div><span class="eyebrow">Coming up</span><h2>Your calendar</h2></div>
+        <button class="secondary-button" id="create-event-button">＋ Add event</button>
+      </div>
+      <div id="event-list" class="event-list"></div>
+    </section>
+
+    <section id="admin-view" class="view">
+      <div class="section-heading">
+        <div><span class="eyebrow">Church health</span><h2>Admin overview</h2></div>
+        <span class="status-pill">Live</span>
+      </div>
+      <div id="metric-grid" class="metric-grid"></div>
+      <div class="admin-panel">
+        <div>
+          <span class="eyebrow">Get started</span>
+          <h3>Invite your church family</h3>
+          <p>Members can be added one at a time today. CSV import arrives before beta.</p>
+        </div>
+        <button class="primary-button" id="invite-button">Invite members</button>
+      </div>
+    </section>
+  </main>
+
+  <nav class="mobile-nav" aria-label="Mobile navigation">
+    <button class="active" data-view="today"><span>⌂</span>Today</button>
+    <button data-view="groups"><span>◉</span>Groups</button>
+    <button data-view="calendar"><span>□</span>Calendar</button>
+    <button data-view="admin"><span>⌁</span>Admin</button>
+  </nav>
+
+  <dialog id="composer">
+    <form method="dialog" id="announcement-form">
+      <div class="dialog-heading"><div><span class="eyebrow">Share an update</span><h2>New announcement</h2></div><button class="close-button" value="cancel" aria-label="Close">×</button></div>
+      <label>Group<select name="groupId" id="announcement-group" required></select></label>
+      <label>Title<input name="title" maxlength="80" placeholder="What should people know?" required></label>
+      <label>Message<textarea name="body" rows="5" maxlength="800" placeholder="Keep it clear and helpful." required></textarea></label>
+      <label class="check-label"><input type="checkbox" name="isPinned"> Pin this announcement</label>
+      <div class="dialog-actions"><button value="cancel" class="secondary-button">Cancel</button><button type="submit" value="default" class="primary-button">Publish announcement</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="group-dialog">
+    <form method="dialog" id="group-form">
+      <div class="dialog-heading"><div><span class="eyebrow">Build community</span><h2>Create a group</h2></div><button class="close-button" value="cancel" aria-label="Close">×</button></div>
+      <label>Group name<input name="name" maxlength="60" placeholder="e.g. Sunday Volunteers" required></label>
+      <label>Description<textarea name="description" rows="3" maxlength="240" placeholder="Who is this group for?"></textarea></label>
+      <label class="check-label"><input type="checkbox" name="discussionEnabled" checked> Allow group discussion</label>
+      <div class="dialog-actions"><button value="cancel" class="secondary-button">Cancel</button><button type="submit" value="default" class="primary-button">Create group</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="event-dialog">
+    <form method="dialog" id="event-form">
+      <div class="dialog-heading"><div><span class="eyebrow">Gather together</span><h2>Add an event</h2></div><button class="close-button" value="cancel" aria-label="Close">×</button></div>
+      <label>Event name<input name="title" maxlength="80" placeholder="e.g. Community Dinner" required></label>
+      <label>Date and time<input name="startsAt" type="datetime-local" required></label>
+      <label>Location<input name="location" maxlength="100" placeholder="Main Auditorium"></label>
+      <label>Description<textarea name="description" rows="3" maxlength="400"></textarea></label>
+      <div class="dialog-actions"><button value="cancel" class="secondary-button">Cancel</button><button type="submit" value="default" class="primary-button">Add event</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="notifications-dialog">
+    <div class="dialog-heading"><div><span class="eyebrow">Stay in the loop</span><h2>Notifications</h2></div><button class="close-button" onclick="this.closest('dialog').close()" aria-label="Close">×</button></div>
+    <div id="notification-list" class="notification-list"></div>
+  </dialog>
+
+  <dialog id="discussion-dialog">
+    <div class="dialog-heading"><div><span class="eyebrow">Group discussion</span><h2 id="discussion-title">Conversation</h2></div><button class="close-button" onclick="this.closest('dialog').close()" aria-label="Close">×</button></div>
+    <div id="message-list" class="message-list"></div>
+    <form method="dialog" id="message-form" class="message-form">
+      <input type="hidden" name="groupId">
+      <input name="body" maxlength="500" placeholder="Write a message…" required autocomplete="off">
+      <button class="primary-button" type="submit">Send</button>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
